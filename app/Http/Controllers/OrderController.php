@@ -116,4 +116,20 @@ class OrderController extends Controller
             return response('Error creating product'.$e, 500);
         }
     }
+
+    public function update(Request $request, $id) {
+
+        try {
+            $order = Order::findOrFail($id);
+            $order->status = ($request->has('status') ? $request->input('status') : 'pending');
+            $order->save();
+
+            return [
+                'updated_order' => $order
+            ];
+        }
+        catch (Exception $e) {
+            return response('Error updating order status', 400);
+        }
+    }
 }
