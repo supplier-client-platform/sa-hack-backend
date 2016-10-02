@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Order;
 use App\Order_item;
 use DB;
+use Exception;
 
 class OrderController extends Controller
 {
@@ -70,16 +71,16 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         try{
-            if (!$request->has('order.customer_id')) {
+            if (!$request->has('customer_id')) {
                 throw new Exception('Error: customerId not defined');
             }
-            if (!$request->has('order.total_price')) {
+            if (!$request->has('total_price')) {
                 throw new Exception('Error: total_price not defined');
             }
-            if (!$request->has('order.status')) {
+            if (!$request->has('status')) {
                 throw new Exception('Error: status not defined');
             }
-            if (!$request->has('order.items')) {
+            if (!$request->has('items')) {
                 throw new Exception('Error: items not defined');
             }
         }
@@ -89,16 +90,18 @@ class OrderController extends Controller
 
         try {
             $new_order = Order::create([
-                'customer_id' => $request->input('order.customer_id'),
-                'total_price' => $request->input('order.total_price'),
-                'status' => $request->input('order.status')
+                'customer_id' => $request->input('customer_id'),
+                'total_price' => $request->input('total_price'),
+                'status' => $request->input('status')
             ]);
 
 
-            foreach ($request->input('order.items') as $item) {
+            $items = json_decode($request->input('items'),true);
+
+            foreach ($items as $item) {
                 $order_item = Order_item::create([
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
+                    'product_id' => $item['product_id'],
+                    'quantity' => $item['quantity'],
                     'order_id' => $new_order->id
                 ]);
             }
@@ -108,7 +111,7 @@ class OrderController extends Controller
             ];
         }
         catch(Exception $e) {
-            return response('Error creating product', 500);
+            return response('Error creating product'.$e, 500);
         }
     }
 }
