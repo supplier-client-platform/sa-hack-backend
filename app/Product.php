@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = 'product';
     protected $guarded = [
         'id',
-        'created_at',
+//        'created_at',
         'updated_at'
     ];
 }
