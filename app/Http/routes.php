@@ -18,16 +18,18 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'product'], function () {
-    Route::get('/products','ProductController@index');
-    Route::post('/products/save','ProductController@store');
-    Route::patch('/products/update','ProductController@update');
-    Route::delete('/products/delete','ProductController@destroy');
+    Route::get('product/all','ProductController@index');
+    Route::get('product/{id}','ProductController@index_get');
+    Route::post('product/new','ProductController@store');
+    Route::patch('product/update/{id}','ProductController@update');
+    Route::delete('product/delete/{id}','ProductController@destroy');
 });
 
 Route::group(['prefix' => 'order'], function () {
-    Route::get('/orders','OrderController@index');
-    Route::post('/orders/save','OrderController@store');
-    Route::patch('/orders/update','OrderController@update');
-    Route::delete('/orders/delete','OrderController@destroy');
+    Route::get('order/all','OrderController@index');
+    Route::get('order/{id}','OrderController@index_id');
+    Route::post('order/new','OrderController@store');
+    Route::patch('order/update/{id}','OrderController@update');
+    Route::delete('order/delete/{id}','OrderController@destroy');
 
 });
