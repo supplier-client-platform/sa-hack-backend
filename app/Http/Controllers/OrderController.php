@@ -55,12 +55,12 @@ class OrderController extends Controller
         try {
             return [
                 'order' =>
-                DB::select(DB::raw("SELECT a.*,(select p.name from product p where p.id = a.product_id) as pname  FROM `order_item` a WHERE a.order_id =".$id." "))
+                DB::select(DB::raw("SELECT a.*,(select p.name from product p where p.id = a.product_id) as pname  FROM `order_item` a WHERE a.order_id =".$id))
                 //DB::table('order_item')->where('order_id', $id)->get()
             ];
         }
         catch (Exception $e) {
-            return response('Error retrieving items', 404);
+            return response('Error retrieving items'.$e, 404);
         }
     }
 
@@ -113,7 +113,7 @@ class OrderController extends Controller
             ];
         }
         catch(Exception $e) {
-            return response('Error creating product'.$e, 500);
+            return response('Error creating product', 500);
         }
     }
 
