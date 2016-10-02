@@ -113,7 +113,7 @@ class ProductController extends Controller
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'img_url' => $request->input('img_url'),
-                'status' => ($request->has('status')) ? $request->input('status') : 'pending',
+                'is_available' => ($request->has('is_available')) ? $request->input('is_available') : 1
             ]);
 
             return [
@@ -121,7 +121,7 @@ class ProductController extends Controller
             ];
         }
         catch(Exception $e) {
-            return response('Error updating product', 500);
+            return response('Error updating product'.$e, 500);
         }
     }
 
