@@ -54,7 +54,9 @@ class OrderController extends Controller
     {
         try {
             return [
-                'order' => DB::table('order_item')->where('order_id', $id)->get()
+                'order' =>
+                DB::select(DB::raw("SELECT a.*,(select p.name from product p where p.id = a.product_id) as pname  FROM `order_item` a WHERE a.order_id =".$id." "))
+                //DB::table('order_item')->where('order_id', $id)->get()
             ];
         }
         catch (Exception $e) {
