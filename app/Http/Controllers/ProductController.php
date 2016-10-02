@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         try {
             return [
-                'products' => Product::all()
+                'products' => Product::where('is_available', 1)->get()
             ];
         }
         catch (Exception $e) {
@@ -108,11 +108,12 @@ class ProductController extends Controller
         }
 
         try {
-            $new_product = Product::where('id', $id)
+            Product::where('id', $id)
             ->update([
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
-                'img_url' => $request->input('img_url')
+                'img_url' => $request->input('img_url'),
+                'status' => ($request->has('status')) ? $request->input('status') : 'pending',
             ]);
 
             return [
