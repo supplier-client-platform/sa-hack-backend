@@ -11,25 +11,27 @@
 |
 */
 
+// HACK: Workaround for CORS issue
+header('Access-Control-Allow-Origin: *');
+header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-
+// CHANGED: update was changed to post, delete was changed to get
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('product/all','ProductController@index');
     Route::get('product/{id}','ProductController@index_get');
     Route::post('product/new','ProductController@store');
-    Route::patch('product/update/{id}','ProductController@update');
-    Route::delete('product/delete/{id}','ProductController@destroy');
+    Route::post('product/update/{id}','ProductController@update');
+    Route::get('product/delete/{id}','ProductController@destroy');
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('order/all','OrderController@index');
     Route::get('order/{id}','OrderController@index_id');
     Route::post('order/new','OrderController@store');
-    Route::patch('order/update/{id}','OrderController@update');
-    Route::delete('order/delete/{id}','OrderController@destroy');
-
+    Route::post('order/update/{id}','OrderController@update');
+    Route::get('order/delete/{id}','OrderController@destroy');
 });
