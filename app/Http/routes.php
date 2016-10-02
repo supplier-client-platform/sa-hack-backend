@@ -14,3 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/products','ProductController@index');
+    Route::post('/products/save','ProductController@store');
+    Route::patch('/products/update','ProductController@update');
+    Route::delete('/products/delete','ProductController@destroy');
+});
+
+Route::group(['prefix' => 'order'], function () {
+    Route::get('/orders','OrderController@index');
+    Route::post('/orders/save','OrderController@store');
+    Route::patch('/orders/update','OrderController@update');
+    Route::delete('/orders/delete','OrderController@destroy');
+
+});
