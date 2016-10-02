@@ -31,7 +31,8 @@ Route::group(['prefix' => 'api/v1'], function () {
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('order/all','OrderController@index');
-//    Route::get('order/{id}','OrderController@index_id');
+   // Route::get('order/{id}','OrderController@index_id');
+    Route::get('order/items/{id}','OrderController@index_item');
     Route::post('order/new','OrderController@store');
     Route::post('order/update/{id}','OrderController@update');
     Route::get('order/delete/{id}','OrderController@destroy');
