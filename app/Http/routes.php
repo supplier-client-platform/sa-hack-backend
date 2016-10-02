@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 
-Route::group(['prefix' => 'product'], function () {
+Route::group(['prefix' => 'api/v1'], function () {
     Route::get('product/all','ProductController@index');
     Route::get('product/{id}','ProductController@index_get');
     Route::post('product/new','ProductController@store');
@@ -25,7 +25,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::delete('product/delete/{id}','ProductController@destroy');
 });
 
-Route::group(['prefix' => 'order'], function () {
+Route::group(['prefix' => 'api/v1'], function () {
     Route::get('order/all','OrderController@index');
     Route::get('order/{id}','OrderController@index_id');
     Route::post('order/new','OrderController@store');
