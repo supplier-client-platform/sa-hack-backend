@@ -23,8 +23,25 @@ class OrderController extends Controller
         catch (Exception $e) {
             return response('Error retrieving orders', 500);
         }
-
     }
+
+    /**
+     * Display a listing of the resource by id.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_id($id)
+    {
+        try {
+            return [
+                'order' => Order::findOrFail($id)
+            ];
+        }
+        catch (Exception $e) {
+            return response('Error retrieving order', 404);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,18 +51,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+       
     }
 
     /**
@@ -60,14 +66,4 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
